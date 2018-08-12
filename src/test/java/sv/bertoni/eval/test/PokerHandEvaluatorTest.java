@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -19,8 +20,9 @@ public class PokerHandEvaluatorTest {
 
     @Test
     public void getPlayerOneWins() throws IOException, URISyntaxException {
+        Path path = new File(Paths.get(".").toAbsolutePath().normalize().toString()+ "/pokerdata.txt").toPath();
         logger.info(Files
-                .lines(new File(PokerHandEvaluator.class.getResource("/pokerdata.txt").toURI()).toPath())
+                .lines(path)
                 .parallel()
                 .filter(s -> new PokerHandEvaluator.Hand(s, 0).score > new PokerHandEvaluator.Hand(s, 3 * 5).score)
                 .count());
@@ -29,8 +31,9 @@ public class PokerHandEvaluatorTest {
 
     @Test
     public void getPlayerTwoWins() throws IOException, URISyntaxException {
+        Path path = new File(Paths.get(".").toAbsolutePath().normalize().toString()+ "/pokerdata.txt").toPath();
         logger.info(Files
-                .lines(new File(PokerHandEvaluator.class.getResource("/pokerdata.txt").toURI()).toPath())
+                .lines(path)
                 .parallel()
                 .filter(s -> new PokerHandEvaluator.Hand(s, 0).score < new PokerHandEvaluator.Hand(s, 3 * 5).score)
                 .count());
@@ -39,7 +42,7 @@ public class PokerHandEvaluatorTest {
     @Test
     public void getPlayerNeitherWins() throws IOException, URISyntaxException {
 
-        Path path = new File(PokerHandEvaluator.class.getResource("/pokerdata.txt").toURI()).toPath();
+        Path path = new File(Paths.get(".").toAbsolutePath().normalize().toString()+ "/pokerdata.txt").toPath();
 
 
         logger.info(Files
